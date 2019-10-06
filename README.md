@@ -1,12 +1,11 @@
 # XRP paper wallet
-Generates key-pair: public (address) and private key (secret).
+This wallet generates several key-pairs per page. This is convenient for cold storage of XRP.
 
-Run the code on github:
-https://bithomp.github.io/xrp-paper-wallet/
-
-Or download and run locally (works offline in your browser).
+Download and run locally (works offline in your browser).
 
 # Credits
+
+- Bithomp's xrp-paper-wallet https://github.com/Bithomp/xrp-paper-wallet
 
 - ripple-lib
 https://github.com/ripple/ripple-lib
