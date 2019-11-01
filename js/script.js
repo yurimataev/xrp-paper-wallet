@@ -2,7 +2,17 @@ newripple(10);
 
 function newripple(count) {
 	var api = new ripple.RippleAPI();
-	
+
+  // destroy all but the first wallet
+  var nl = document.querySelectorAll('div.wallet');
+  nl.forEach(
+    function(currentValue, currentIndex, listObj) {
+      if (currentIndex > 0) {
+        currentValue.remove();
+      }
+    }
+  );
+
 	for (var i=1; i<=count; i++) {
 		var wallet = 'wallet'+i;
 		if (document.getElementById(wallet) === null) {
