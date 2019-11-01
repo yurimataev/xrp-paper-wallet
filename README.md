@@ -1,3 +1,7 @@
+---
+permalink: /index.html
+---
+
 # XRP Paper Wallet
 This wallet generates several key-pairs per page. This is convenient for cold storage of XRP.
 
