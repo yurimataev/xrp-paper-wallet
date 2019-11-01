@@ -4,6 +4,10 @@ body {
   margin: 0;
 }
 
+h1 {
+  text-align: center;
+}
+
 .wallet {
   width: 7.8in;
   height: 90px;
@@ -62,6 +66,7 @@ body {
 }
 
 @media print {
+  h1 { margin-top: 0; }
   .buttons { display:none }
   .wallet {
     width: 7.8in;
