@@ -25,7 +25,7 @@ h1 {
 .address-text, .secret-text {
   font-size: 13px;
   margin: 0 100px;
-  padding: 0 10px 5px;
+  padding: 5px 10px;
   font-weight: bold;
   display:inline-block;
 }
@@ -35,6 +35,14 @@ h1 {
 .address-text legend, .secret-text legend {
   font-size: 12px;
   border: 1px solid black;
+}
+.address-text legend {
+  padding-left: 15px;
+  padding-right: 40px;
+}
+.secret-text legend {
+  padding-left: 40px;
+  padding-right: 15px;
 }
 .address, .secret {
   word-wrap: break-word;
