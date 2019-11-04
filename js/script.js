@@ -16,7 +16,7 @@ function generate() {
       genEth(walletCount || 9);
       break;
     case 'XMR':
-      genXmr(walletCount || 8);
+      genXmr(walletCount || 7);
       break;
   }
 }
@@ -44,15 +44,16 @@ function genEth (walletCount) {
 }
 
 function genXmr (walletCount) {
-  var seed = cnUtil.sc_reduce32(cnUtil.rand_32());
   genWallets (walletCount, function () {
+    var seed = cnUtil.sc_reduce32(cnUtil.rand_32());
     var keys = cnUtil.create_address(seed);
 
     return {
       'address' : cnUtil.pubkeys_to_string(keys.spend.pub, keys.view.pub),
       // 'secret' : keys.spend.sec,
-      'secret' : keys.view.sec,
-      'mnemonic' : mn_encode(seed)
+      // 'secret' : keys.view.sec,
+      'secret' : seed,
+      'mnemonic' : true
     }
   });
 }
@@ -78,19 +79,20 @@ function genWallets(count, addressGenerator) {
 		wallet = '#' + wallet;
 		var account = addressGenerator();
 		document.querySelector(wallet + ' .qr-address').innerHTML = '';
-		var qrcodeAddress = new QRCode(document.querySelector(wallet + ' .qr-address'),{width: 90,height: 90});
+		var qrcodeAddress = new QRCode(
+      document.querySelector(wallet + ' .qr-address'),
+      {width: 90,height: 90}
+    );
 		document.querySelector(wallet + ' .qr-secret').innerHTML = '';
-		var qrcodeSecret = new QRCode(document.querySelector(wallet + ' .qr-secret'),{width: 90, height: 90});
+		var qrcodeSecret = new QRCode(
+      document.querySelector(wallet + ' .qr-secret'),
+      {width: 90, height: 90}
+    );
 
 		document.querySelector(wallet + ' .address').innerHTML = account['address'];
-		document.querySelector(wallet + ' .secret').innerHTML = account['secret'];
+    document.querySelector(wallet + ' .secret').innerHTML =
+      (account['mnemonic']) ? mn_encode(account['secret']) : account['secret'];
 		qrcodeAddress.makeCode(account['address']);
 		qrcodeSecret.makeCode(account['secret']);
 	}
-  if (account['mnemonic']) {
-    document.getElementById('mnemonic').style.display = 'block';
-    document.querySelector('#mnemonic h2').innerHTML = account['mnemonic'];
-  } else {
-    document.getElementById('mnemonic').style.display = 'none';
-  }
 }
