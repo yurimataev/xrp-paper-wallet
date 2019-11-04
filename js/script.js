@@ -8,33 +8,53 @@ function generate() {
   var pageTitle = currency + ' Paper Wallet';
   document.getElementById('heading').innerHTML = document.title = pageTitle;
 
-  if (walletCount <= 0) {
-    alert ('Enter an integer greater than 0 for wallet count.');
-    return;
-  }
-
   switch (currency) {
     case 'XRP':
-      genWallets (walletCount, function () {
-        var api = new ripple.RippleAPI();
-        var account = api.generateAddress();
-        return {
-          'address' : account.address,
-          'secret' : account.secret
-        }
-      });
+      genXrp(walletCount || 9);
       break;
     case 'ETH':
-      genWallets (walletCount, function () {
-        var api = new Web3EthAccounts();
-        var account = api.create();
-        return {
-          'address' : account.address,
-          'secret' : account.privateKey
-        }
-      });
+      genEth(walletCount || 9);
+      break;
+    case 'XMR':
+      genXmr(walletCount || 8);
       break;
   }
+}
+
+function genXrp (walletCount) {
+  genWallets (walletCount, function () {
+    var api = new ripple.RippleAPI();
+    var account = api.generateAddress();
+    return {
+      'address' : account.address,
+      'secret' : account.secret
+    }
+  });
+}
+
+function genEth (walletCount) {
+  genWallets (walletCount, function () {
+    var api = new Web3EthAccounts();
+    var account = api.create();
+    return {
+      'address' : account.address,
+      'secret' : account.privateKey
+    }
+  });
+}
+
+function genXmr (walletCount) {
+  var seed = cnUtil.sc_reduce32(cnUtil.rand_32());
+  genWallets (walletCount, function () {
+    var keys = cnUtil.create_address(seed);
+
+    return {
+      'address' : cnUtil.pubkeys_to_string(keys.spend.pub, keys.view.pub),
+      // 'secret' : keys.spend.sec,
+      'secret' : keys.view.sec,
+      'mnemonic' : mn_encode(seed)
+    }
+  });
 }
 
 function genWallets(count, addressGenerator) {
@@ -67,4 +87,10 @@ function genWallets(count, addressGenerator) {
 		qrcodeAddress.makeCode(account['address']);
 		qrcodeSecret.makeCode(account['secret']);
 	}
+  if (account['mnemonic']) {
+    document.getElementById('mnemonic').style.display = 'block';
+    document.querySelector('#mnemonic h2').innerHTML = account['mnemonic'];
+  } else {
+    document.getElementById('mnemonic').style.display = 'none';
+  }
 }

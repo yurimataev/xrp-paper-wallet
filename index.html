@@ -6,12 +6,17 @@
 	<script src="js/ripple-0.17.9.js"></script>
 	<script src="js/qrcode.js"></script>
   <script src="js/web3-eth-accounts.js"></script>
+  <script src="js/monero-lib.js"></script>
 	<link rel="stylesheet" href="css/styles.css"/>
 	<title>Universal paper wallet</title>
 </head>
 <body>
   <h1 id="heading">Universal Paper Wallet</h1>
-	<div id="container">
+	<div id="container" class="container">
+    <fieldset id="mnemonic" class="mnemonic">
+      <legend>Mnemonic</legend>
+      <h2></h2>
+    </fieldset>
 		<div id="wallet1" class="wallet">
 			<div class="qr-address"></div>
 			<fieldset class="address-text">
@@ -26,10 +31,11 @@
 		</div>
 	</div>
 	<div class="buttons">
-		Number of Wallets to Generate: <input type="text" id="wallet_count" value="9">
+		Number of Wallets to Generate: <input type="text" id="wallet_count">
     <select id="currency">
       <option selected>XRP</option>
       <option>ETH</option>
+      <option>XMR</option>
     </select>
     <br>
 		<button type="button" onclick="generate()">Generate new</button>
