@@ -19,10 +19,14 @@ h1 {
   width: 100%;
 }
 
+svg {
+  width: 100%;
+}
+
 .address-text, .secret-text {
-  font-size: 16px;
+  font-size: 13px;
   position: absolute;
-  padding: 0 15px 5px;
+  padding: 0 10px 5px;
   font-weight: bold;
 }
 
@@ -32,12 +36,12 @@ h1 {
 
 .address-text {
   left:100px;
-  top:0;
+  top:7px;
 }
 
 .secret-text {
   right:100px;
-  bottom:0;
+  bottom:7px;
 }
 
 .qr-secret, .qr-address {
